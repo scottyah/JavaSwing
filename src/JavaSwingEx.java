@@ -10,7 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.plaf.metal.MetalIconFactory;
+import javax.swing.KeyStroke;
+import javax.swing.ImageIcon;
 
 
 /*
@@ -56,28 +57,70 @@ public class JavaSwingEx extends JFrame {
 		~~~~~~END PANEL METHOD~~~~~~*/
 		
 		JMenuBar menubar = new JMenuBar();
-		ImageIcon icon = new ImageIcon("exit.png");
+		ImageIcon iconNew = new ImageIcon("new.png");
+		ImageIcon iconOpen = new ImageIcon("open.png");
+		ImageIcon iconSave = new ImageIcon("save.png");
+		ImageIcon iconExit = new ImageIcon("exit.png");
 		
 		JMenu file = new JMenu("File");
-		file.setMnemonic(KeyEvent.VK_0);
+		file.setMnemonic(KeyEvent.VK_F);
 		
-		JMenuItem eMenuItem = new JMenuItem("Exit", icon);
-		eMenuItem.setMnemonic(KeyEvent.VK_1);
-		eMenuItem.setToolTipText("Click here to Exit");
+		JMenu imp = new JMenu("Import");
+		imp.setMnemonic(KeyEvent.VK_M);
+		
+		JMenuItem newsf = new JMenuItem("Import newsfeed list...");
+		JMenuItem bookm = new JMenuItem("Import bookmarks...");
+		JMenuItem mail = new JMenuItem("Import mail...");
+		
+		imp.add(newsf);
+		imp.add(bookm);
+		imp.add(mail);
+		
+		
+		JMenuItem fileNew = new JMenuItem("New", iconNew);
+		fileNew.setMnemonic(KeyEvent.VK_N);
+		
+		JMenuItem fileOpen = new JMenuItem("Open", iconOpen);
+		fileOpen.setMnemonic(KeyEvent.VK_O);
+		
+		JMenuItem fileSave = new JMenuItem("Save", iconSave);
+		fileSave.setMnemonic(KeyEvent.VK_S);
+		
+		JMenuItem fileExit = new JMenuItem("Exit", iconExit);
+		fileExit.setMnemonic(KeyEvent.VK_C);
+		fileExit.setToolTipText("Click here to Exit");
+		fileExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+		//Accelerator is a key shortcut that launches a menu item
+		
+		fileExit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event){
+				System.exit(0);
+			}
+		});
+		/* this method is used when no fileExit method exists
 		eMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				System.exit(0);
 			}
 		});
+		*/
 		
-		file.add(eMenuItem);
+		file.add(fileNew);
+		file.add(fileOpen);
+		file.add(fileSave);
+		file.addSeparator();
+		file.add(imp);
+		file.addSeparator();
+		file.add(fileExit);
+		
+		menubar.add(file);
 		
 		setJMenuBar(menubar);
 		
-		
 		setTitle("Judge not by the cover or this (ans:title)");
-		setSize(300, 200);
+		setSize(500, 300);
 		setLocationRelativeTo(null); //centers window on screen
 		setDefaultCloseOperation(EXIT_ON_CLOSE); //Important- by default nothing happens
 	}
